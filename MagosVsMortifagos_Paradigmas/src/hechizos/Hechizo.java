@@ -1,11 +1,13 @@
 package hechizos;
 
-public class Hechizo {
-	int nivelRequerido;
-	
-	
-	
-	public int getNivelReq() {
-		return this.nivelRequerido;
-	}
+import personajes.Personaje;
+
+public interface Hechizo {
+	void ejecutar(Personaje lanzador, Personaje objetivo);
+
+	TipoMagia getTipoMagia();
+
+	int getNivelReq();
+
+	String getNombre();
 }

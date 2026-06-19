@@ -1,7 +1,5 @@
 package personajes;
 
-import hechizos.Hechizo;
-
 public class Comandante extends Mortifago{
 	
 	public Comandante(String nombre, int nivelMagia, int puntosVida) {
@@ -21,10 +19,5 @@ public class Comandante extends Mortifago{
 	@Override
 	public int modificadorDefensa(int base) {
 		return super.modificadorDefensa(base) - 5;
-	}
-	
-	@Override
-	public boolean puedeAprender(Hechizo h) {
-		return super.puedeAprender(h) && h.getNivelReq() <= 100;
 	}
 }

@@ -1,5 +1,4 @@
 package personajes;
-import hechizos.Hechizo; 
 
 public class Estudiante extends Mago{
 	
@@ -15,10 +14,5 @@ public class Estudiante extends Mago{
 	@Override
 	public int modificadorDefensa(int base) {
 		return super.modificadorDefensa(base) + 10;
-	}
-	
-	@Override
-	public boolean puedeAprender(Hechizo h) {
-		return super.puedeAprender(h) && h.getNivelReq() <= 50;
 	}
 }
