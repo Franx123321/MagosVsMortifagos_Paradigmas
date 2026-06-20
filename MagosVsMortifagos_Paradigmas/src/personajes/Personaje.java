@@ -51,16 +51,42 @@ public abstract class Personaje {
 	}
 
 	public void aprenderHechizo(Hechizo h) {
-		if (this.puedeAprender(h)) {
-			this.hechizos.add(h);
+		if (h == null) {
+			throw new NullPointerException("Debe especificarse un hechizo.");
 		}
+
+		if (!this.puedeAprender(h)) {
+			return;
+		}
+
+		for (Hechizo hechizo : hechizos) {
+			if (hechizo.getNombre().equals(h.getNombre()))
+				return;
+		}
+		
+		hechizos.add(h);
 	}
 
 	public void lanzarHechizo(Hechizo h, Personaje objetivo) {
-		if (this.tieneEstado(Estado.PARALIZADO))
+		if(h == null || objetivo == null) {
+			throw new NullPointerException("Para lanzar un hechizo deben especificarse hechizo y objetivo.");
+		}
+		
+		if (tieneEstado(Estado.PARALIZADO) || !hechizos.contains(h) || !estaVivo() || !conoceHechizo(h)) {
 			return;
-
+		}
+			
 		h.ejecutar(this, objetivo);
+	}
+	
+	private boolean conoceHechizo(Hechizo h) {
+		for(Hechizo hechizo : hechizos) {
+			if(hechizo.getNombre().equals(h.getNombre())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	// Esto es porque los magos no pueden aprender hechizos oscuros, y losmortifagos
