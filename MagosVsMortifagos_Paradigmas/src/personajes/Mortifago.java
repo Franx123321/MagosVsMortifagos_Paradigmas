@@ -10,7 +10,7 @@ public abstract class Mortifago extends Personaje {
 
 	@Override
 	public boolean puedeAprender(Hechizo h) {
-		return h.getTipoMagia() != TipoMagia.LUMINOSA && this.getNivelMagia() > h.getNivelReq();
+		return h.getTipoMagia() != TipoMagia.LUMINOSA && this.getNivelMagia() >= h.getNivelReq();
 	}
 
 	@Override

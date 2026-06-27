@@ -72,9 +72,9 @@ public abstract class Personaje {
 			throw new NullPointerException("Para lanzar un hechizo deben especificarse hechizo y objetivo.");
 		}
 		
-		if (tieneEstado(Estado.PARALIZADO) || !hechizos.contains(h) || !estaVivo() || !conoceHechizo(h)) {
-			return;
-		}
+		if (tieneEstado(Estado.PARALIZADO) || !estaVivo() || !conoceHechizo(h)) {
+	        return;
+	    }
 			
 		h.ejecutar(this, objetivo);
 	}

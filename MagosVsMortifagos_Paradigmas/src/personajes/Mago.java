@@ -11,7 +11,7 @@ public abstract class Mago extends Personaje {
 
 	@Override
 	public boolean puedeAprender(Hechizo h) {
-		return h.getTipoMagia() != TipoMagia.OSCURA && this.getNivelMagia() > h.getNivelReq();
+		return h.getTipoMagia() != TipoMagia.OSCURA && this.getNivelMagia() >= h.getNivelReq();
 	}
 
 	@Override
