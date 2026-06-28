@@ -24,4 +24,9 @@ public class Ferula implements Hechizo {
 	public String getNombre() { 
 		return "Ferula";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return true;
+	}
 }

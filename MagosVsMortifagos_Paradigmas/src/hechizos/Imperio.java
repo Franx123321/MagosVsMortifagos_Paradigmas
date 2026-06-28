@@ -24,4 +24,9 @@ public class Imperio implements Hechizo {
 	public String getNombre() {
 		return "Imperio";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

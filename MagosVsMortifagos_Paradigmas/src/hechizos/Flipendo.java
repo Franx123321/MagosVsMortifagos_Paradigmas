@@ -29,4 +29,9 @@ public class Flipendo implements Hechizo{
 	public String getNombre() { 
 		return "Flipendo";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

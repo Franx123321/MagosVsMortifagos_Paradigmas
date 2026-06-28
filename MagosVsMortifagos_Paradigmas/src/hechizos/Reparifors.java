@@ -24,4 +24,9 @@ public class Reparifors implements Hechizo {
 	public String getNombre() { 
 		return "Reparifors";
 	}
+	
+	@Override //Podría ser true tambien
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

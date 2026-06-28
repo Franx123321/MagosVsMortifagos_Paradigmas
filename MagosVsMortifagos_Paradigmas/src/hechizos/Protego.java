@@ -23,4 +23,9 @@ public class Protego implements Hechizo {
 	public String getNombre() { 
 		return "Protego";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return true;
+	}
 }

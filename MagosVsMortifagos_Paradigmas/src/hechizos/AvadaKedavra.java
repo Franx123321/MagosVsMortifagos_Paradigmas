@@ -33,4 +33,9 @@ public class AvadaKedavra implements Hechizo{
 	public String getNombre() {
 		return "Avada Kedavra";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

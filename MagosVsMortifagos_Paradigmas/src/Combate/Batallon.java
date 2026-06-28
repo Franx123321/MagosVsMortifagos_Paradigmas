@@ -1,0 +1,137 @@
+package Combate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import hechizos.Hechizo;
+import personajes.Estado;
+import personajes.Personaje;
+
+public class Batallon {
+    private List<Personaje> integrantes;
+    private Set<String> hechizosLanzadosEnTurno; 
+    private Map<String, List<String>> historialHechizosPorPersonaje;
+
+    public Batallon() {
+        this.integrantes = new ArrayList<>();
+        this.hechizosLanzadosEnTurno = new HashSet<>();
+        this.historialHechizosPorPersonaje = new HashMap<>();
+    }
+
+    public void agregarPersonaje(Personaje p) {
+        if (p != null) {
+            integrantes.add(p);
+        }
+    }
+
+    public boolean tienePersonajesSaludables() {
+        for (Personaje p : integrantes) {
+            if (p.estaVivo()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Personaje> obtenerIntegrantesVivos() {
+        List<Personaje> vivos = new ArrayList<>();
+        for (Personaje p : integrantes) {
+            if (p.estaVivo()) {
+                vivos.add(p);
+            }
+        }
+        return vivos;
+    }
+
+    public void ejecutarTurno(Batallon batallonEnemigo) {
+        // Al comenzar el turno del batallón, se limpia el Set de hechizos usados
+        hechizosLanzadosEnTurno.clear();
+
+        System.out.println("\n--- Turno de las acciones del Batallón ---");
+
+        for (Personaje actuante : integrantes) {
+            // Un personaje eliminado o paralizado no puede actuar
+            if (!actuante.estaVivo() || actuante.tieneEstado(Estado.PARALIZADO)) {
+                if (actuante.tieneEstado(Estado.PARALIZADO) && actuante.estaVivo()) {
+                    System.out.println(actuante.getNombre() + " está PARALIZADO y pierde su acción.");
+                }
+                continue;
+            }
+
+            List<Hechizo> conocidos = actuante.getHechizos();
+            if (conocidos.isEmpty()) {
+                System.out.println(actuante.getNombre() + " no conoce ningún hechizo.");
+                continue;
+            }
+
+            // Buscamos un hechizo que el personaje conozca y que el batallón NO haya usado este turno
+            Hechizo hechizoAEjecutar = null;
+            for (Hechizo h : conocidos) {
+                if (!hechizosLanzadosEnTurno.contains(h.getNombre())) {
+                    hechizoAEjecutar = h;
+                    break;
+                }
+            }
+
+            if (hechizoAEjecutar != null) {
+            	// Buscamos un objetivo enemigo vivo al azar
+            	List<Personaje> enemigosObjetivo = batallonEnemigo.obtenerIntegrantesVivos();
+            	if (enemigosObjetivo.isEmpty()) {
+            	    break; // No quedan enemigos vivos, termina el combate
+            	}
+            	
+            	Personaje objetivo;
+            	if (hechizoAEjecutar.esTargetAliado()) {
+            	    // Si es curación o protección (Protego), va a un aliado vivo del mismo batallón
+            	    List<Personaje> aliadosVivos = this.obtenerIntegrantesVivos();
+            	    objetivo = aliadosVivos.get((int) (Math.random() * aliadosVivos.size()));
+            	} else {
+            	    // Si es de ataque, daño o estado negativo, va al enemigo
+            	    objetivo = enemigosObjetivo.get((int) (Math.random() * enemigosObjetivo.size()));
+            	}
+            	System.out.printf("     %-20s -> lanzó [%-18s] -> a %s\n", 
+            		    actuante.getNombre() + " (" + actuante.getClass().getSimpleName() + ")", 
+            		    hechizoAEjecutar.getNombre(), 
+            		    objetivo.getNombre());
+                
+                // Registrar en el turno y en el historial global del mapa
+                hechizosLanzadosEnTurno.add(hechizoAEjecutar.getNombre());
+                registrarEnHistorial(actuante, hechizoAEjecutar.getNombre());
+
+                // El personaje ejecuta el hechizo
+                actuante.lanzarHechizo(hechizoAEjecutar, objetivo);
+            } else {
+                System.out.println(actuante.getNombre() + " no pudo actuar porque todos sus hechizos ya se repitieron en este turno.");
+            }
+        }
+    }
+
+    private void registrarEnHistorial(Personaje p, String nombreHechizo) {
+        String clave = p.getNombre() + " (" + p.getClass().getSimpleName() + ")";
+        
+        if (!historialHechizosPorPersonaje.containsKey(clave)) {
+            historialHechizosPorPersonaje.put(clave, new ArrayList<>());
+        }
+        
+        historialHechizosPorPersonaje.get(clave).add(nombreHechizo);
+    }
+
+    public void mostrarEstadisticasBatallon() {
+        if (historialHechizosPorPersonaje.isEmpty()) {
+            System.out.println("   No se llegaron a lanzar hechizos.");
+            return;
+        }
+        
+        for (Map.Entry<String, List<String>> entrada : historialHechizosPorPersonaje.entrySet()) {
+            System.out.println("    * " + entrada.getKey() + " lanzó: " + entrada.getValue());
+        }
+    }
+    
+    public List<Personaje> getIntegrantes() {
+        return this.integrantes;
+    }
+}

@@ -32,4 +32,9 @@ public class Reducto implements Hechizo {
 	public String getNombre() { 
 		return "Reducto";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

@@ -23,4 +23,9 @@ public class PetrificusTotalus implements Hechizo {
 	public String getNombre() {
 		return "Petrificus Totalus";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

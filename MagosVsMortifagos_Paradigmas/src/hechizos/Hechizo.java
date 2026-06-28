@@ -10,4 +10,5 @@ public interface Hechizo {
 	int getNivelReq();
 
 	String getNombre();
+	boolean esTargetAliado();
 }

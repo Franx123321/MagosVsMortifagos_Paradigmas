@@ -30,4 +30,9 @@ public class Expelliarmus implements Hechizo {
 	public String getNombre() { 
 		return "Expelliarmus";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

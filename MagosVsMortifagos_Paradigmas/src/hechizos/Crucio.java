@@ -36,4 +36,9 @@ public class Crucio implements Hechizo {
 	public String getNombre() {
 		return "Crucio";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

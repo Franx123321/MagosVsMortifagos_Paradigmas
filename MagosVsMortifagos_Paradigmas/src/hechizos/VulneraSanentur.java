@@ -24,4 +24,10 @@ public class VulneraSanentur implements Hechizo {
 	public String getNombre() { 
 		return "Vulnera Sanentur";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return true;
+	}
 }
+

@@ -29,4 +29,9 @@ public class Sectusempra implements Hechizo {
 	public String getNombre() { 
 		return "Sectusempra";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

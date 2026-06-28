@@ -29,4 +29,9 @@ public class Diffindo implements Hechizo {
 	public String getNombre() { 
 		return "Diffindo";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return false;
+	}
 }

@@ -24,4 +24,9 @@ public class Episkey implements Hechizo {
 	public String getNombre() { 
 		return "Episkey";
 	}
+	
+	@Override
+	public boolean esTargetAliado() {
+	    return true;
+	}
 }
