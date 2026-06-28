@@ -13,7 +13,7 @@ public class PersonajeFactory {
 	}
 
 	public static Estudiante crearEstudiante(String nombre) {
-		int nivel = generarNivel(1, 60);
+		int nivel = generarNivel(15, 60);
 		Estudiante estudiante = new Estudiante(nombre, nivel, 100);
 
 		asignarHechizos(estudiante);
