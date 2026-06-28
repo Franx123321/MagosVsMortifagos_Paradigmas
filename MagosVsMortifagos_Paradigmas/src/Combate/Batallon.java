@@ -68,13 +68,17 @@ public class Batallon {
                 continue;
             }
 
-            // Buscamos un hechizo que el personaje conozca y que el batallón NO haya usado este turno
-            Hechizo hechizoAEjecutar = null;
+            List<Hechizo> disponibles = new ArrayList<>();
             for (Hechizo h : conocidos) {
                 if (!hechizosLanzadosEnTurno.contains(h.getNombre())) {
-                    hechizoAEjecutar = h;
-                    break;
+                    disponibles.add(h);
                 }
+            }
+
+            Hechizo hechizoAEjecutar = null;
+            if (!disponibles.isEmpty()) {
+                // Elige un hechizo al azar de entre todos los que cumplen la condición
+                hechizoAEjecutar = disponibles.get((int) (Math.random() * disponibles.size()));
             }
 
             if (hechizoAEjecutar != null) {

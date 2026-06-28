@@ -23,7 +23,7 @@ public class PersonajeFactory {
 
 	public static Profesor crearProfesor(String nombre) {
 		int nivel = generarNivel(50, 110);
-		Profesor profesor = new Profesor(nombre, nivel, 100);
+		Profesor profesor = new Profesor(nombre, nivel, 110);
 
 		asignarHechizos(profesor);
 
@@ -32,7 +32,7 @@ public class PersonajeFactory {
 
 	public static Auror crearAuror(String nombre) {
 		int nivel = generarNivel(100, 150);
-		Auror auror = new Auror(nombre, nivel, 100);
+		Auror auror = new Auror(nombre, nivel, 120);
 
 		asignarHechizos(auror);
 
@@ -50,7 +50,7 @@ public class PersonajeFactory {
 
 	public static Comandante crearComandante(String nombre) {
 		int nivel = generarNivel(80, 150);
-		Comandante comandante = new Comandante(nombre, nivel, 100);
+		Comandante comandante = new Comandante(nombre, nivel, 90);
 
 		asignarHechizos(comandante);
 

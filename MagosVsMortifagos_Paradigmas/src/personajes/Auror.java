@@ -8,6 +8,6 @@ public class Auror extends Mago{
 	
 	@Override
 	public int modificadorDanio(int base) {
-		return base + 15;
+		return super.modificadorDanio(base) + 25;
 	}
 }

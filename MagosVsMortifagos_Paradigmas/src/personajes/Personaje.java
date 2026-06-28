@@ -26,16 +26,24 @@ public abstract class Personaje {
 	}
 
 	public void recibirDanio(int danio) {
-		if (this.tieneEstado(Estado.PROTEGIDO)) {
-			danio /= 2;
-			this.quitarEstado(Estado.PROTEGIDO);
-		}
-
-		this.puntosVida -= danio;
-
-		if (this.puntosVida < 0) {
-			this.puntosVida = 0;
-		}
+	    danio = modificadorDefensa(danio); 
+	    
+	    //Si la defensa redujo el daño a menos de 0, lo dejamos en 0 para que no cure
+	    if (danio < 0) {
+	        danio = 0; 
+	    }
+	    
+	    //Si tiene Protego, se reduce a la mitad el daño restante
+	    if (this.tieneEstado(Estado.PROTEGIDO)) {
+	        danio /= 2;
+	        this.quitarEstado(Estado.PROTEGIDO);
+	    }
+	    
+	    //Restamos la vida final
+	    this.puntosVida -= danio;
+	    if (this.puntosVida < 0) {
+	        this.puntosVida = 0;
+	    }
 	}
 
 	public void curarse(int vida) {

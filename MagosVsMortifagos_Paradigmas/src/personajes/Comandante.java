@@ -8,7 +8,7 @@ public class Comandante extends Mortifago{
 	
 	@Override
 	public int modificadorDanio(int base) {
-		return super.modificadorDanio(base) + 25;
+		return super.modificadorDanio(base) + 15;
 	}
 	
 	@Override
