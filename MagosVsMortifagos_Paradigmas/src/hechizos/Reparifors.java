@@ -1,3 +1,4 @@
+
 package hechizos;
 
 import personajes.Estado;
@@ -25,8 +26,8 @@ public class Reparifors implements Hechizo {
 		return "Reparifors";
 	}
 	
-	@Override //Podría ser true tambien
+	@Override
 	public boolean esTargetAliado() {
-	    return false;
+	    return true;
 	}
 }

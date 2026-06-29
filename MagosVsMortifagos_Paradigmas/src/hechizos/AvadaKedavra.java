@@ -6,7 +6,7 @@ import personajes.Personaje;
 public class AvadaKedavra implements Hechizo{
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		if (Math.random() < 0.2) { //La idea es que tenga un 20% de prob de errar el hechizo y no alreves.
+		if (Math.random() < 0.8) {
 			return;
 		} else {
 			int danio = lanzador.modificadorDanio(objetivo.getPuntosVida() * 2);
