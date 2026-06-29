@@ -114,7 +114,13 @@ public class BatallaMagosVsMortifagos {
         
         for (Personaje p : b.getIntegrantes()) {
             if (p.estaVivo()) {
-                System.out.println("    * " + p.getNombre() + " (" + p.getClass().getSimpleName() + "): " + p.getPuntosVida() + " HP");
+                System.out.print("    * " + p.getNombre() + " (" + p.getClass().getSimpleName() + "): " + p.getPuntosVida() + " HP");
+                
+                if (p.tieneAlgunEstado()) {
+                	System.out.print("  Estados: [" + p.obtenerEstados() + "]");
+                }
+                
+                System.out.println();
             } else {
                 System.out.println("    * " + p.getNombre() + " (" + p.getClass().getSimpleName() + "): [ELIMINADO]");
             }

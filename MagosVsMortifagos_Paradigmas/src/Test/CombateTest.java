@@ -138,7 +138,7 @@ public class CombateTest {
     void personajeParalizadoNoPuedeLanzarEnTurno() {
         Hechizo expelliarmus = HechizoFactory.crearHechizo("Expelliarmus");
         auror.aprenderHechizo(expelliarmus);
-        auror.agregarEstado(Estado.PARALIZADO);
+        auror.agregarEstado(Estado.PARALIZADO, 1);
 
         batallonMagos.agregarPersonaje(auror);
         batallonMortifagos.agregarPersonaje(seguidor);

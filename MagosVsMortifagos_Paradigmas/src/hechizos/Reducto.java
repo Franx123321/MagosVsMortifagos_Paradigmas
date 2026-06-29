@@ -12,7 +12,7 @@ public class Reducto implements Hechizo {
 			lanzador.recibirDanio(danio);
 		} else {
 			if(Math.random() < 0.4) {
-				objetivo.agregarEstado(Estado.CONFUNDIDO);
+				objetivo.agregarEstado(Estado.CONFUNDIDO, 2);
 			}
 			objetivo.recibirDanio(danio);
 		}

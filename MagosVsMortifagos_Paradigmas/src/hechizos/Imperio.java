@@ -6,8 +6,8 @@ import personajes.Personaje;
 public class Imperio implements Hechizo {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		objetivo.agregarEstado(Estado.PARALIZADO);
-		objetivo.agregarEstado(Estado.CONFUNDIDO);
+		objetivo.agregarEstado(Estado.PARALIZADO, 1);
+		objetivo.agregarEstado(Estado.CONFUNDIDO, 2);
 	}
 
 	@Override

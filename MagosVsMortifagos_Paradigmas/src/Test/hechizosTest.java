@@ -190,8 +190,8 @@ public class hechizosTest {
     void repariforsCuraEstados() {
         Hechizo h = HechizoFactory.crearHechizo("Reparifors");
         auror.aprenderHechizo(h);
-        seguidor.agregarEstado(Estado.CONFUNDIDO);
-        seguidor.agregarEstado(Estado.PARALIZADO);
+        seguidor.agregarEstado(Estado.CONFUNDIDO, 2);
+        seguidor.agregarEstado(Estado.PARALIZADO, 2);
         auror.lanzarHechizo(h, seguidor);
         assertFalse(seguidor.tieneEstado(Estado.CONFUNDIDO));
         assertFalse(seguidor.tieneEstado(Estado.PARALIZADO));

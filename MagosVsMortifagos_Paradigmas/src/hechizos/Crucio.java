@@ -15,7 +15,7 @@ public class Crucio implements Hechizo {
 				lanzador.recibirDanio(danio);
 			} else {
 				if (Math.random() < 0.3) {
-					objetivo.agregarEstado(Estado.CONFUNDIDO);
+					objetivo.agregarEstado(Estado.CONFUNDIDO, 2);
 				}
 				objetivo.recibirDanio(danio);
 			}

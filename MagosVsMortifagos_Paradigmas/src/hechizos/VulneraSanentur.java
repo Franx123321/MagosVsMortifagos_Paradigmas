@@ -30,4 +30,3 @@ public class VulneraSanentur implements Hechizo {
 	    return true;
 	}
 }
-

@@ -80,29 +80,56 @@ public class PersonajesTest {
 
     @Test
     void agregarEstadoFunciona() {
-        auror.agregarEstado(Estado.CONFUNDIDO);
+        auror.agregarEstado(Estado.CONFUNDIDO, 1);
         assertTrue(auror.tieneEstado(Estado.CONFUNDIDO));
     }
 
     @Test
     void quitarEstadoFunciona() {
-        auror.agregarEstado(Estado.CONFUNDIDO);
+        auror.agregarEstado(Estado.CONFUNDIDO, 1);
         auror.quitarEstado(Estado.CONFUNDIDO);
         assertFalse(auror.tieneEstado(Estado.CONFUNDIDO));
     }
 
     @Test
-    void noHayEstadosDuplicados() {
-        auror.agregarEstado(Estado.PARALIZADO);
-        auror.agregarEstado(Estado.PARALIZADO);
+    void agregarEstadoDuplicadoPisaElContador() {
+        auror.agregarEstado(Estado.PARALIZADO, 1);
+        auror.agregarEstado(Estado.PARALIZADO, 3);
         auror.quitarEstado(Estado.PARALIZADO);
         assertFalse(auror.tieneEstado(Estado.PARALIZADO));
+    }
+    
+    @Test
+    void estadoExpiraDespuesDeRondasCorrespondientes() {
+        auror.agregarEstado(Estado.PARALIZADO, 2);
+        auror.actualizarEstados(); // ronda 1 = queda en 1
+        assertTrue(auror.tieneEstado(Estado.PARALIZADO));
+        auror.actualizarEstados(); // ronda 2 = llega a 0, se elimina
+        assertFalse(auror.tieneEstado(Estado.PARALIZADO));
+    }
+
+    @Test
+    void estadoConDuracionUnaRondaExpiraAlActualizar() {
+        auror.agregarEstado(Estado.CONFUNDIDO, 1);
+        auror.actualizarEstados();
+        assertFalse(auror.tieneEstado(Estado.CONFUNDIDO));
+    }
+
+    @Test
+    void tieneAlgunEstadoRetornaFalseSinEstados() {
+        assertFalse(auror.tieneAlgunEstado());
+    }
+
+    @Test
+    void tieneAlgunEstadoRetornaVerdaderoConEstado() {
+        auror.agregarEstado(Estado.CONFUNDIDO, 1);
+        assertTrue(auror.tieneAlgunEstado());
     }
 
     @Test
     void protegoReduceDanioALaMitad() {
         Auror aurorSinProtego = new Auror("Test", 150, 100);
-        auror.agregarEstado(Estado.PROTEGIDO);
+        auror.agregarEstado(Estado.PROTEGIDO, 1);
         auror.recibirDanio(50);
         aurorSinProtego.recibirDanio(50);
         assertTrue(auror.getPuntosVida() > aurorSinProtego.getPuntosVida());
@@ -110,7 +137,7 @@ public class PersonajesTest {
 
     @Test
     void protegoSeConsumeDespuesDeUsarse() {
-        auror.agregarEstado(Estado.PROTEGIDO);
+        auror.agregarEstado(Estado.PROTEGIDO, 1);
         auror.recibirDanio(10);
         assertFalse(auror.tieneEstado(Estado.PROTEGIDO));
     }
@@ -119,7 +146,7 @@ public class PersonajesTest {
     void personajeParalizadoNoPuedeLanzarHechizo() {
         Hechizo expelliarmus = HechizoFactory.crearHechizo("Expelliarmus");
         auror.aprenderHechizo(expelliarmus);
-        auror.agregarEstado(Estado.PARALIZADO);
+        auror.agregarEstado(Estado.PARALIZADO, 1);
         int vidaEnemigo = seguidor.getPuntosVida();
         auror.lanzarHechizo(expelliarmus, seguidor);
         assertEquals(vidaEnemigo, seguidor.getPuntosVida());
@@ -127,8 +154,8 @@ public class PersonajesTest {
 
     @Test
     void personajePuedeTenerVariosEstadosALaVez() {
-        auror.agregarEstado(Estado.CONFUNDIDO);
-        auror.agregarEstado(Estado.PARALIZADO);
+        auror.agregarEstado(Estado.CONFUNDIDO, 1);
+        auror.agregarEstado(Estado.PARALIZADO, 1);
         assertTrue(auror.tieneEstado(Estado.CONFUNDIDO));
         assertTrue(auror.tieneEstado(Estado.PARALIZADO));
     }

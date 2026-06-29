@@ -1,10 +1,9 @@
 package personajes;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.HashSet;
-
 import hechizos.Hechizo;
 
 public abstract class Personaje {
@@ -14,7 +13,7 @@ public abstract class Personaje {
 	private int puntosVidaMax; // Esto para que no se pueda curar hasta el infinito y tener 1000 de vida si
 								// arranca con 100 por ej.
 	private List<Hechizo> hechizos;
-	private Set<Estado> estados; // Un set para que no haya estados duplicados.
+	private Map<Estado, Integer> estados; // Un set para que no haya estados duplicados.
 
 	public Personaje(String nombre, int nivelMagia, int puntosVida) {
 		this.nombre = nombre;
@@ -22,7 +21,7 @@ public abstract class Personaje {
 		this.puntosVida = puntosVida;
 		this.puntosVidaMax = puntosVida;
 		this.hechizos = new ArrayList<>();
-		this.estados = new HashSet<>();
+		this.estados = new HashMap<>();
 	}
 
 	public void recibirDanio(int danio) {
@@ -109,17 +108,62 @@ public abstract class Personaje {
 
 	public abstract int modificadorDefensa(int base);
 
-	public void agregarEstado(Estado estado) {
-		estados.add(estado);
+	public void agregarEstado(Estado estado, int turnos) {
+	    estados.put(estado, turnos);
 	}
-
+	
 	public void quitarEstado(Estado estado) {
 		estados.remove(estado);
 	}
 
 	public boolean tieneEstado(Estado estado) {
-		return estados.contains(estado);
+		return estados.containsKey(estado);
 	}
+	
+	public void actualizarEstados() {
+
+	    List<Estado> aEliminar = new ArrayList<>();
+
+	    for (Map.Entry<Estado, Integer> e : estados.entrySet()) {
+
+	        int restantes = e.getValue() - 1;
+
+	        if (restantes <= 0) {
+	            aEliminar.add(e.getKey());
+	        } else {
+	            e.setValue(restantes);
+	        }
+	    }
+
+	    for (Estado e : aEliminar) {
+	        estados.remove(e);
+	    }
+	}
+	
+	public boolean tieneAlgunEstado() {
+	    return !estados.isEmpty();
+	}
+	
+	public String obtenerEstados() {
+	    if (estados.isEmpty()) {
+	        return "";
+	    }
+
+	    String resultado = "";
+	    boolean primero = true;
+
+	    for (Map.Entry<Estado, Integer> entry : estados.entrySet()) {
+	        if (!primero) {
+	            resultado = resultado + ", ";
+	        }
+	        
+	        resultado = resultado + entry.getKey() + " (" + entry.getValue() + ")";
+	        primero = false;
+	    }
+
+	    return resultado;
+	}
+	
 
 	// getters
 	public String getNombre() {

@@ -50,21 +50,25 @@ public class Batallon {
     public void ejecutarTurno(Batallon batallonEnemigo) {
         // Al comenzar el turno del batallón, se limpia el Set de hechizos usados
         hechizosLanzadosEnTurno.clear();
-
+        
         System.out.println("\n--- Turno de las acciones del Batallón ---");
 
         for (Personaje actuante : integrantes) {
-            // Un personaje eliminado o paralizado no puede actuar
-            if (!actuante.estaVivo() || actuante.tieneEstado(Estado.PARALIZADO)) {
-                if (actuante.tieneEstado(Estado.PARALIZADO) && actuante.estaVivo()) {
-                    System.out.println(actuante.getNombre() + " está PARALIZADO y pierde su acción.");
-                }
+        	
+        	if (actuante.estaVivo() && actuante.tieneEstado(Estado.PARALIZADO)) {
+                System.out.println(actuante.getNombre() + " está PARALIZADO y pierde su acción.");
+                actuante.actualizarEstados();
                 continue;
+            } else if (!actuante.estaVivo()) {
+            	continue;
             }
+        	
 
             List<Hechizo> conocidos = actuante.getHechizos();
             if (conocidos.isEmpty()) {
                 System.out.println(actuante.getNombre() + " no conoce ningún hechizo.");
+                
+                actuante.actualizarEstados();
                 continue;
             }
 
@@ -111,6 +115,8 @@ public class Batallon {
             } else {
                 System.out.println(actuante.getNombre() + " no pudo actuar porque todos sus hechizos ya se repitieron en este turno.");
             }
+            
+            actuante.actualizarEstados();
         }
     }
 
