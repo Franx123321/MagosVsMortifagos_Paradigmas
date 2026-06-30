@@ -97,8 +97,8 @@ public abstract class Personaje {
 	}
 
 	// Esto es porque los magos no pueden aprender hechizos oscuros, y losmortifagos
-	// no pueden aprender
-	// Expecto Patronum. De la misma forma, hay hechizos de diferentes niveles.
+	// no pueden aprender luminosos.
+	// De la misma forma, hay hechizos de diferentes niveles.
 	public abstract boolean puedeAprender(Hechizo h);
 
 	// Esto es para las "especializaciones" que tiene cada lado.
