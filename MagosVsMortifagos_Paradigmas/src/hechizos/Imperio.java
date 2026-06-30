@@ -29,4 +29,9 @@ public class Imperio implements Hechizo {
 	public boolean esTargetAliado() {
 	    return false;
 	}
+	
+	@Override
+	public boolean haceDanio() {
+		return false;
+	}
 }

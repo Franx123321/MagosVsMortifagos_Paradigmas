@@ -38,4 +38,9 @@ public class AvadaKedavra implements Hechizo{
 	public boolean esTargetAliado() {
 	    return false;
 	}
+	
+	@Override
+	public boolean haceDanio() {
+		return true;
+	}
 }

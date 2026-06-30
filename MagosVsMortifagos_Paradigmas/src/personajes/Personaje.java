@@ -126,6 +126,10 @@ public abstract class Personaje {
 
 	    for (Map.Entry<Estado, Integer> e : estados.entrySet()) {
 
+	        if (e.getKey() == Estado.VENGANZA) {
+	            continue; // No disminuye su duración
+	        }
+	    	
 	        int restantes = e.getValue() - 1;
 
 	        if (restantes <= 0) {

@@ -10,6 +10,7 @@ import java.util.Set;
 import hechizos.Hechizo;
 import personajes.Estado;
 import personajes.Personaje;
+import personajes.Comandante;
 
 public class Batallon {
     private List<Personaje> integrantes;
@@ -98,7 +99,13 @@ public class Batallon {
             	    List<Personaje> aliadosVivos = this.obtenerIntegrantesVivos();
             	    objetivo = aliadosVivos.get((int) (Math.random() * aliadosVivos.size()));
             	} else {
-            	    // Si es de ataque, daño o estado negativo, va al enemigo
+            		// Si es de ataque, daño o estado negativo, va al enemigo
+            		
+            		if(actuante instanceof Comandante && actuante.tieneEstado(Estado.VENGANZA) && hechizoAEjecutar.haceDanio()) { //se fija si es un comandante y si esta en estado de venganza
+            			System.out.println("     >>> " + actuante.getNombre()
+                        + " canaliza su VENGANZA en el ataque (+50% de daño)!"); //si cumple muestra que en el siguiente ataque va a hacer 50% mas de danio
+            		} 
+            		
             	    objetivo = enemigosObjetivo.get((int) (Math.random() * enemigosObjetivo.size()));
             	}
             	System.out.printf("     %-20s -> lanzó [%-18s] -> a %s\n", 
@@ -112,6 +119,25 @@ public class Batallon {
 
                 // El personaje ejecuta el hechizo
                 actuante.lanzarHechizo(hechizoAEjecutar, objetivo);
+                
+                // Se saca el estado de venganza si lo tenia
+                if(actuante.tieneEstado(Estado.VENGANZA) && !actuante.tieneEstado(Estado.CONFUNDIDO)) {
+        			actuante.quitarEstado(Estado.VENGANZA);
+        			if(hechizoAEjecutar.haceDanio()) {
+        				System.out.println("     >>> " + actuante.getNombre() + " descarga su VENGANZA y vuelve a la normalidad.");
+        			}
+                }
+                
+              //si mato al objetivo le informa al otro batallon que se murio (para que el comandante actue en consecuencia), si se mato solo le informa a su equipo
+                if (!objetivo.estaVivo()) {
+                    if (batallonEnemigo.contiene(objetivo)) {
+                        batallonEnemigo.notificarCaidaDeAliado(objetivo);
+                    } 
+                }
+                else if(!actuante.estaVivo()) {
+                	this.notificarCaidaDeAliado(actuante);
+                }
+                
             } else {
                 System.out.println(actuante.getNombre() + " no pudo actuar porque todos sus hechizos ya se repitieron en este turno.");
             }
@@ -120,6 +146,14 @@ public class Batallon {
         }
     }
 
+    public void notificarCaidaDeAliado(Personaje aliadoCaido) {
+        for (Personaje integrante : integrantes) {
+            if (integrante instanceof Comandante comandante) {
+                comandante.reaccionarACaidaDeAliado(aliadoCaido); //notifica al comandante del batallon contrario que se le murio el companiero
+            }
+        }
+    }
+    
     private void registrarEnHistorial(Personaje p, String nombreHechizo) {
         String clave = p.getNombre() + " (" + p.getClass().getSimpleName() + ")";
         
@@ -139,6 +173,11 @@ public class Batallon {
         for (Map.Entry<String, List<String>> entrada : historialHechizosPorPersonaje.entrySet()) {
             System.out.println("    * " + entrada.getKey() + " lanzó: " + entrada.getValue());
         }
+    }
+    
+    //a que personajes contiene el batallon
+    public boolean contiene(Personaje personaje) {
+        return integrantes.contains(personaje);
     }
     
     public List<Personaje> getIntegrantes() {

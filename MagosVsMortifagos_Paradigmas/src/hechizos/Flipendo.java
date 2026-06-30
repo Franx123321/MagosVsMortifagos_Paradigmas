@@ -34,4 +34,9 @@ public class Flipendo implements Hechizo{
 	public boolean esTargetAliado() {
 	    return false;
 	}
+	
+	@Override
+	public boolean haceDanio() {
+		return true;
+	}
 }
