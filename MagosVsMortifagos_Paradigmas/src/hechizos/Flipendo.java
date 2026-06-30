@@ -1,18 +1,11 @@
 package hechizos;
 
-import personajes.Estado;
 import personajes.Personaje;
 
-public class Flipendo implements Hechizo{
+public class Flipendo extends HechizoDeDanio {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		int danio = lanzador.modificadorDanio(30);
-
-		if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-			lanzador.recibirDanio(danio);
-		} else {
-			objetivo.recibirDanio(danio);
-		}
+		aplicarDanio(lanzador, objetivo, 30);
 	}
 
 	@Override
@@ -24,19 +17,9 @@ public class Flipendo implements Hechizo{
 	public int getNivelReq() {
 		return 30;
 	}
-	
+
 	@Override
-	public String getNombre() { 
+	public String getNombre() {
 		return "Flipendo";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }

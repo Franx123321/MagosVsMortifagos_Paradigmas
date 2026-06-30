@@ -3,18 +3,16 @@ package hechizos;
 import personajes.Estado;
 import personajes.Personaje;
 
-public class Reducto implements Hechizo {
+public class Reducto extends HechizoDeDanio {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		int danio = lanzador.modificadorDanio(50);
-
 		if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-			lanzador.recibirDanio(danio);
+			aplicarDanio(lanzador, objetivo, 50);
 		} else {
-			if(Math.random() < 0.4) {
+			if (Math.random() < 0.4) {
 				objetivo.agregarEstado(Estado.CONFUNDIDO, 2);
 			}
-			objetivo.recibirDanio(danio);
+			aplicarDanio(lanzador, objetivo, 50);
 		}
 	}
 
@@ -27,19 +25,9 @@ public class Reducto implements Hechizo {
 	public int getNivelReq() {
 		return 85;
 	}
-	
+
 	@Override
-	public String getNombre() { 
+	public String getNombre() {
 		return "Reducto";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }

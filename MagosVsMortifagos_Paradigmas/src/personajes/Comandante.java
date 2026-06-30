@@ -1,5 +1,7 @@
 package personajes;
 
+import hechizos.Hechizo;
+
 public class Comandante extends Mortifago{
 	
 	private static final double MULTIPLICADOR_VENGANZA = 1.5; //aumento de danio en base a la venganza
@@ -8,6 +10,7 @@ public class Comandante extends Mortifago{
 		super(nombre, nivelMagia, puntosVida);
 	}
 	
+	@Override
 	public void reaccionarACaidaDeAliado(Personaje aliadoCaido) {
 		if (!this.estaVivo() || aliadoCaido == this) {
 			return;
@@ -18,6 +21,23 @@ public class Comandante extends Mortifago{
 			System.out.println("     >>> " + this.getNombre()
 					+ " entra en VENGANZA tras la caída de " + aliadoCaido.getNombre()
 					+ ". Su próximo ataque va a inflingir daño potenciado.");
+		}
+	}
+
+	@Override
+	public void notificarAntesDeAtaqueDanio(Hechizo hechizo) {
+		if (hechizo.haceDanio() && this.tieneEstado(Estado.VENGANZA)) {
+			System.out.println("     >>> " + this.getNombre()
+					+ " canaliza su VENGANZA en el ataque (+50% de daño)!");
+		}
+	}
+
+	@Override
+	public void despuesDeLanzarHechizo(Hechizo hechizo) {
+		if (hechizo.haceDanio() && this.tieneEstado(Estado.VENGANZA)
+				&& !this.tieneEstado(Estado.CONFUNDIDO)) {
+			this.quitarEstado(Estado.VENGANZA);
+			System.out.println("     >>> " + this.getNombre() + " descarga su VENGANZA y vuelve a la normalidad.");
 		}
 	}
 

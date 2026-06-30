@@ -1,18 +1,11 @@
 package hechizos;
 
-import personajes.Estado;
 import personajes.Personaje;
 
-public class Sectusempra implements Hechizo {
+public class Sectusempra extends HechizoDeDanio {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		int danio = lanzador.modificadorDanio(70);
-
-		if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-			lanzador.recibirDanio(danio);
-		} else {
-			objetivo.recibirDanio(danio);
-		}
+		aplicarDanio(lanzador, objetivo, 70);
 	}
 
 	@Override
@@ -24,19 +17,9 @@ public class Sectusempra implements Hechizo {
 	public int getNivelReq() {
 		return 120;
 	}
-	
+
 	@Override
-	public String getNombre() { 
+	public String getNombre() {
 		return "Sectusempra";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }

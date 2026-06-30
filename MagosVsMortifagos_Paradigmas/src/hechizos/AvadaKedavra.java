@@ -1,22 +1,14 @@
 package hechizos;
 
-import personajes.Estado;
 import personajes.Personaje;
 
-public class AvadaKedavra implements Hechizo{
+public class AvadaKedavra extends HechizoDeDanio {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
 		if (Math.random() < 0.8) {
 			return;
-		} else {
-			int danio = lanzador.modificadorDanio(objetivo.getPuntosVida() * 2);
-
-			if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-				lanzador.recibirDanio(danio);
-			} else {
-				objetivo.recibirDanio(danio);
-			}
 		}
+		aplicarDanio(lanzador, objetivo, objetivo.getPuntosVida() * 2);
 	}
 
 	@Override
@@ -32,15 +24,5 @@ public class AvadaKedavra implements Hechizo{
 	@Override
 	public String getNombre() {
 		return "Avada Kedavra";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }

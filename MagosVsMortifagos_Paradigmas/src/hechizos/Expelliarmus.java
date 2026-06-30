@@ -1,19 +1,12 @@
 package hechizos;
 
-import personajes.Estado;
 import personajes.Personaje;
 
-public class Expelliarmus implements Hechizo {
+public class Expelliarmus extends HechizoDeDanio {
 
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		int danio = lanzador.modificadorDanio(20);
-
-		if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-			lanzador.recibirDanio(danio);
-		} else {
-			objetivo.recibirDanio(danio);
-		}	
+		aplicarDanio(lanzador, objetivo, 20);
 	}
 
 	@Override
@@ -25,19 +18,9 @@ public class Expelliarmus implements Hechizo {
 	public int getNivelReq() {
 		return 10;
 	}
-	
+
 	@Override
-	public String getNombre() { 
+	public String getNombre() {
 		return "Expelliarmus";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }

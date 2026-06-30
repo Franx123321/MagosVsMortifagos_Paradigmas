@@ -243,4 +243,21 @@ public class CombateTest {
 
         assertTrue(ronda < maxRondas, "La batalla no terminó en " + maxRondas + " rondas");
     }
+
+    @Test
+    void turnoNoRepiteMismoHechizoEntreIntegrantes() {
+        Auror auror1 = new Auror("A1", 150, 100);
+        Auror auror2 = new Auror("A2", 150, 100);
+        Hechizo expelliarmus = HechizoFactory.crearHechizo("Expelliarmus");
+        auror1.aprenderHechizo(expelliarmus);
+        auror2.aprenderHechizo(expelliarmus);
+
+        batallonMagos.agregarPersonaje(auror1);
+        batallonMagos.agregarPersonaje(auror2);
+        batallonMortifagos.agregarPersonaje(seguidor);
+
+        batallonMagos.ejecutarTurno(batallonMortifagos);
+
+        assertEquals(1, batallonMagos.contarLanzamientosEnHistorial("Expelliarmus"));
+    }
 }

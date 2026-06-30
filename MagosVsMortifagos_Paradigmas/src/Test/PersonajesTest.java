@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Combate.Batallon;
 import hechizos.*;
 import personajes.*;
 
@@ -271,5 +272,47 @@ public class PersonajesTest {
     @Test
     void magoCuraMejorQueMortifago() {
         assertTrue(auror.modificadorCuracion(30) > seguidor.modificadorCuracion(30));
+    }
+
+    @Test
+    void venganzaSeActivaAlCaerUnAliado() {
+        Seguidor aliado = new Seguidor("Aliado", 100, 100);
+        Batallon batallon = new Batallon();
+        batallon.agregarPersonaje(comandante);
+        batallon.agregarPersonaje(aliado);
+
+        aliado.recibirDanio(10000);
+        batallon.notificarCaidaDeAliado(aliado);
+
+        assertTrue(comandante.tieneEstado(Estado.VENGANZA));
+    }
+
+    @Test
+    void venganzaNoSeConsumeConHechizoSinDanio() {
+        Hechizo protego = HechizoFactory.crearHechizo("Protego");
+        comandante.agregarEstado(Estado.VENGANZA, 1);
+
+        comandante.despuesDeLanzarHechizo(protego);
+
+        assertTrue(comandante.tieneEstado(Estado.VENGANZA));
+    }
+
+    @Test
+    void venganzaSeConsumeConHechizoDeDanio() {
+        Hechizo diffindo = HechizoFactory.crearHechizo("Diffindo");
+        comandante.agregarEstado(Estado.VENGANZA, 1);
+
+        comandante.despuesDeLanzarHechizo(diffindo);
+
+        assertFalse(comandante.tieneEstado(Estado.VENGANZA));
+    }
+
+    @Test
+    void venganzaPotenciaElDanioDelComandante() {
+        int danioSinVenganza = comandante.modificadorDanio(50);
+        comandante.agregarEstado(Estado.VENGANZA, 1);
+        int danioConVenganza = comandante.modificadorDanio(50);
+
+        assertTrue(danioConVenganza > danioSinVenganza);
     }
 }

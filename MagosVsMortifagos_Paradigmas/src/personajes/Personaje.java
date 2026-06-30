@@ -13,7 +13,7 @@ public abstract class Personaje {
 	private int puntosVidaMax; // Esto para que no se pueda curar hasta el infinito y tener 1000 de vida si
 								// arranca con 100 por ej.
 	private List<Hechizo> hechizos;
-	private Map<Estado, Integer> estados; // Un set para que no haya estados duplicados.
+	private Map<Estado, Integer> estados;
 
 	public Personaje(String nombre, int nivelMagia, int puntosVida) {
 		this.nombre = nombre;
@@ -107,6 +107,15 @@ public abstract class Personaje {
 	public abstract int modificadorCuracion(int base);
 
 	public abstract int modificadorDefensa(int base);
+
+	public void reaccionarACaidaDeAliado(Personaje aliadoCaido) {
+	}
+
+	public void notificarAntesDeAtaqueDanio(Hechizo hechizo) {
+	}
+
+	public void despuesDeLanzarHechizo(Hechizo hechizo) {
+	}
 
 	public void agregarEstado(Estado estado, int turnos) {
 	    estados.put(estado, turnos);

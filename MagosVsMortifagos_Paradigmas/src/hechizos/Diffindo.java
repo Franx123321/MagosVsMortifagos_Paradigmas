@@ -1,18 +1,11 @@
 package hechizos;
 
-import personajes.Estado;
 import personajes.Personaje;
 
-public class Diffindo implements Hechizo {
+public class Diffindo extends HechizoDeDanio {
 	@Override
 	public void ejecutar(Personaje lanzador, Personaje objetivo) {
-		int danio = lanzador.modificadorDanio(40);
-
-		if (lanzador.tieneEstado(Estado.CONFUNDIDO)) {
-			lanzador.recibirDanio(danio);
-		} else {
-			objetivo.recibirDanio(danio);
-		}
+		aplicarDanio(lanzador, objetivo, 40);
 	}
 
 	@Override
@@ -24,19 +17,9 @@ public class Diffindo implements Hechizo {
 	public int getNivelReq() {
 		return 50;
 	}
-	
+
 	@Override
-	public String getNombre() { 
+	public String getNombre() {
 		return "Diffindo";
-	}
-	
-	@Override
-	public boolean esTargetAliado() {
-	    return false;
-	}
-	
-	@Override
-	public boolean haceDanio() {
-		return true;
 	}
 }
