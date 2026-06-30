@@ -113,7 +113,7 @@ public class Batallon {
                 actuante.lanzarHechizo(hechizoAEjecutar, objetivo);
                 actuante.despuesDeLanzarHechizo(hechizoAEjecutar);
 
-              //si mato al objetivo le informa al otro batallon que se murio (para que el comandante actue en consecuencia), si se mato solo le informa a su equipo
+                //si mato al objetivo le informa al otro batallon que se murio (para que el comandante actue en consecuencia), si se mato solo le informa a su equipo
                 if (!objetivo.estaVivo()) {
                     if (batallonEnemigo.contiene(objetivo)) {
                         batallonEnemigo.notificarCaidaDeAliado(objetivo);
