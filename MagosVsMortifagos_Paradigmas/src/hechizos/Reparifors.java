@@ -30,4 +30,9 @@ public class Reparifors implements Hechizo {
 	public boolean esTargetAliado() {
 	    return true;
 	}
+	
+	@Override
+	public boolean haceDanio() {
+		return false;
+	}
 }

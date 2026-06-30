@@ -21,7 +21,7 @@ public class BatallaMagosVsMortifagos {
         batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Crabbe Sr."));
         batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Goyle Sr."));
         batallonMortifagos.agregarPersonaje(PersonajeFactory.crearComandante("Lucius Malfoy"));
-
+        
         int ronda = 1;
 
      // Loop principal de la batalla

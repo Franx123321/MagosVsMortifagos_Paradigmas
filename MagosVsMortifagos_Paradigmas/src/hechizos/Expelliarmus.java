@@ -35,4 +35,9 @@ public class Expelliarmus implements Hechizo {
 	public boolean esTargetAliado() {
 	    return false;
 	}
+	
+	@Override
+	public boolean haceDanio() {
+		return true;
+	}
 }
