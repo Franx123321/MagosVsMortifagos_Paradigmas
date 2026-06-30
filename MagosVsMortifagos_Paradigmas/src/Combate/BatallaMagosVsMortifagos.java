@@ -17,9 +17,10 @@ public class BatallaMagosVsMortifagos {
         batallonMagos.agregarPersonaje(PersonajeFactory.crearEstudiante("Harry"));
         batallonMagos.agregarPersonaje(PersonajeFactory.crearProfesor("Lupin"));
         batallonMagos.agregarPersonaje(PersonajeFactory.crearAuror("Kingsley"));
+        batallonMagos.agregarPersonaje(PersonajeFactory.crearEstudiante("Ron"));
 
-        batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Crabbe Sr."));
-        batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Goyle Sr."));
+        batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Crabbe"));
+        batallonMortifagos.agregarPersonaje(PersonajeFactory.crearSeguidor("Goyle"));
         batallonMortifagos.agregarPersonaje(PersonajeFactory.crearComandante("Lucius Malfoy"));
         
         int ronda = 1;
